@@ -43,7 +43,7 @@
                 <h2 class="md-flex">空空姐G蛋仔</i> &nbsp;&nbsp;</div>
 </md-toolbar><md-content flex layout-padding ng-show="main"> <section>
 <md-subheader class="md-primary"><h1 layout="row" layout-align="center center" style="color: #000000;"></md-list-item> </md-list>
-</section> <section layout="column" flex="100"> <md-button class="md-raised md-warn" ng-click="goto('page2')" name="page2" style="background-color: #000000;"> 按我預約叫車 </md-button></section> </md-content><md-content flex layout-padding ng-show="!main"><form name="sendForm"><div ng-show="flight"> <md-input-container class="md-icon-float md-block">
+</section> <section layout="column" flex="100"> <md-button class="md-raised md-warn" ng-click="goto('page2')" name="page2" style="background-color: #000000;"></md-button></section> </md-content><md-content flex layout-padding ng-show="!main"><form name="sendForm"><div ng-show="flight"> <md-input-container class="md-icon-float md-block">
 <label class="md-required" for="input_1">📆訂購日期</label>
 <input ng-model="user.rideDate" type="date" placeholder="📆訂購日期" ng-required="true" class="ng-pristine ng-valid md-input ng-not-empty ng-valid-required ng-touched" id="input_1" required="required" aria-invalid="false" style="">
 <div class="md-errors-spacer"></div>
@@ -111,7 +111,7 @@
             text+='➖➖➖➖➖➖➖➖➖';
             if($scope.flight) {
                 
-                text+='%0A📆訂購日期: '+rideDate+'%0A⏰取餐時間: '+rideTime;
+                text+='%0A📆訂購日期: '+rideDate+'%0A⏰取餐時間: '+rideTime ;
                 text+='🐣購買品項:';
                 text+='%0A📌備註: '+terminal;
                 text+='%0A➖➖➖➖➖➖➖➖➖';
