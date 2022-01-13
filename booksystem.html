@@ -14,6 +14,7 @@
     <meta http-equiv="EXPIRES" CONTENT="0">
     <meta http-equiv="CACHE-CONTROL" CONTENT="NO-CACHE">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
    <style>
         .layout-padding {
             padding: 30px
@@ -42,8 +43,7 @@
                 <h2 class="md-flex">空空姐G蛋仔</i> &nbsp;&nbsp;</div>
 </md-toolbar><md-content flex layout-padding ng-show="main"> <section>
 <md-subheader class="md-primary"><h1 layout="row" layout-align="center center" style="color: #000000;"></md-list-item> </md-list>
-</section>  
-</md-content><md-content flex layout-padding ng-show="!main"><form name="sendForm"><div ng-show="flight"> <md-input-container class="md-icon-float md-block">
+</section> <section layout="column" flex="100"> <md-button class="md-raised md-warn" ng-click="goto('page2')" name="page2" style="background-color: #000000;"></md-button></section> </md-content><md-content flex layout-padding ng-show="!main"><form name="sendForm"><div ng-show="flight"> <md-input-container class="md-icon-float md-block">
 <label class="md-required" for="input_1">📆訂購日期</label>
 <input ng-model="user.rideDate" type="date" placeholder="📆訂購日期" ng-required="true" class="ng-pristine ng-valid md-input ng-not-empty ng-valid-required ng-touched" id="input_1" required="required" aria-invalid="false" style="">
 <div class="md-errors-spacer"></div>
@@ -56,6 +56,8 @@
     <div class="md-errors-spacer"></div>
 </md-input-container>
 <!-- ngIf: !flight -->
+<!-- ngIf: flight -->
+<!-- end ngIf: flight -->
 <!-- ngIf: flight -->
      <md-input-container class="md-icon-float md-block md-input-has-placeholder">
         <label for="input_13">📌備註</label>
@@ -77,13 +79,12 @@
 </div>
 <section layout="row" layout-sm="column" layout-align="center center" layout-wrap="" class="layout-wrap layout-sm-column layout-align-center-center layout-row">
 
-</md-button> <md-button class="md-raised md-line" type="button" ng-click="send()" ng-disabled="sendForm.$invalid"> <mat-icon class="fab fa-line"></mat-icon> 傳送至 LINE@ </md-button> <input ng-model="user.service" type="hidden" ng-required="true"> </section></form> </md-content></div> <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script> <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.min.js"></script> <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-aria.min.js"></script> <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-messages.min.js"></script> <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script> 
-<script>angular.module('BlankApp', ['ngMaterial', 'ngMessages']).controller('AppCtrl', function($scope) {
+</md-button> <md-button class="md-raised md-line" type="button" ng-click="send()" ng-disabled="sendForm.$invalid"> <mat-icon class="fab fa-line"></mat-icon> 傳送至 LINE@ </md-button> <input ng-model="user.service" type="hidden" ng-required="true"> </section></form> </md-content></div> <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script> <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.min.js"></script> <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-aria.min.js"></script> <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-messages.min.js"></script> <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script> <script>angular.module('BlankApp', ['ngMaterial', 'ngMessages']).controller('AppCtrl', function($scope) {
     $scope.main=true;
     $scope.flight=false;
     $scope.reserve=false;
     $scope.user= {
-        rideDate: new Date(), rideTime: new Date(), getOnPlace: '', getOffPlace: '', plane: '', terminal: ''
+        service: '', name: '', phone: '', rideDate: new Date(), rideTime: new Date(), getOnPlace: '', getOffPlace: '', plane: '', terminal: '', peopleNumber: 1, baggageNumber: 0, waitMinutes: 15, note: ''
     }
     ;
     $scope.goto=function(page) {
@@ -106,15 +107,17 @@
             let rideTime=timeInterval+('0'+$scope.user.rideTime.getHours()).substr(-2)+':'+('0'+$scope.user.rideTime.getMinutes()).substr(-2);
             let terminal=$scope.user.terminal;
             let note=$scope.user.note;
-            let text=($scope.flight)?'✈️️空空姐G蛋仔': '';
-            text+='➖➖➖➖➖➖➖';
+            let text=($scope.flight)?'✈️️空空姐G蛋仔': '📅皇家預約叫車📅%0D%0A';
+            text+='➖➖➖➖➖➖➖➖➖';
             if($scope.flight) {
                 
-                text+='%0A📆訂購日期: '+rideDate+'%0A⏰取餐時間: '+rideTime;
+                text+='%0A📆訂購日期: '+rideDate+'%0A⏰取餐時間: '+rideTime ;
                 text+='🐣購買品項:';
                 text+='%0A📌備註: '+terminal;
-                text+='%0A➖➖➖➖➖➖➖';
+                text+='%0A➖➖➖➖➖➖➖➖➖';
                 
+            }
+            else {
             }
             window.location='line://oaMessage/@679xttxv/'+text;
         };
@@ -123,5 +126,61 @@
 }
 
 );
-</script> 
-</body></html>
+</script> <div style="text-align: right;position: fixed;z-index:9999999;bottom: 0;width: auto;right: 1%;cursor: pointer;line-height: 0;display:block !important;"><a title="Hosted on free web hosting 000webhost.com. Host your own website for FREE." target="_blank" href="https://www.000webhost.com/?utm_source=000webhostapp&utm_campaign=000_logo&utm_medium=website&utm_content=footer_img"><img src="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png" alt="www.000webhost.com"></a></div><script>function getCookie(t) {
+    for(var e=t+"=", n=decodeURIComponent(document.cookie).split(";"), o=0;
+    o<n.length;
+    o++) {
+        for(var i=n[o];
+        " "==i.charAt(0);
+        )i=i.substring(1);
+        if(0==i.indexOf(e))return i.substring(e.length, i.length)
+    }
+    return""
+}
+
+getCookie("hostinger")&&(document.cookie="hostinger=;expires=Thu, 01 Jan 1970 00:00:01 GMT;", location.reload());
+var wordpressAdminBody=document.getElementsByClassName("wp-admin")[0],
+notification=document.getElementsByClassName("notice notice-success is-dismissible"),
+hostingerLogo=document.getElementsByClassName("hlogo"),
+mainContent=document.getElementsByClassName("notice_content")[0];
+if(null!=wordpressAdminBody&&notification.length>0&&null!=mainContent) {
+    var googleFont=document.createElement("link");
+    googleFontHref=document.createAttribute("href"),
+    googleFontRel=document.createAttribute("rel"),
+    googleFontHref.value="https://fonts.googleapis.com/css?family=Roboto:300,400,600",
+    googleFontRel.value="stylesheet",
+    googleFont.setAttributeNode(googleFontHref),
+    googleFont.setAttributeNode(googleFontRel);
+    var css="@media only screen and (max-width: 576px) {#main_content {max-width: 320px !important;} #main_content h1 {font-size: 30px !important;} #main_content h2 {font-size: 40px !important; margin: 20px 0 !important;} #main_content p {font-size: 14px !important;} #main_content .content-wrapper {text-align: center !important;}} @media only screen and (max-width: 781px) {#main_content {margin: auto; justify-content: center; max-width: 445px;}} @media only screen and (max-width: 1325px) {.web-hosting-90-off-image-wrapper {position: absolute; max-width: 95% !important;} .notice_content {justify-content: center;} .web-hosting-90-off-image {opacity: 0.3;}} @media only screen and (min-width: 769px) {.notice_content {justify-content: space-between;} #main_content {margin-left: 5%; max-width: 445px;} .web-hosting-90-off-image-wrapper {position: absolute; right: 0; display: flex; padding: 0 5%}} .web-hosting-90-off-image {max-width: 90%;} .content-wrapper {z-index: 5} .notice_content {display: flex; align-items: center;} * {-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;} .upgrade_button_red_sale{box-shadow: 0 2px 4px 0 rgba(255, 69, 70, 0.2); max-width: 350px; border: 0; border-radius: 3px; background-color: #ff4546 !important; padding: 15px 55px !important; margin-bottom: 48px; font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 600; color: #ffffff;} .upgrade_button_red_sale:hover{color: #ffffff !important; background: #d10303 !important;}",
+    style=document.createElement("style"),
+    sheet=window.document.styleSheets[0];
+    style.styleSheet?style.styleSheet.cssText=css: style.appendChild(document.createTextNode(css)), document.getElementsByTagName("head")[0].appendChild(style), document.getElementsByTagName("head")[0].appendChild(googleFont);
+    var button=document.getElementsByClassName("upgrade_button_red")[0],
+    link=button.parentElement;
+    link.setAttribute("href", "https://www.hostinger.com/hosting-starter-offer?utm_source=000webhost&utm_medium=panel&utm_campaign=000-wp"),
+    link.innerHTML='<button class="upgrade_button_red_sale">TRANSFER NOW</button>',
+    (notification=notification[0]).setAttribute("style", "padding-bottom: 0; padding-top: 5px; background-color: #313134; background-size: cover; background-repeat: no-repeat; color: #ffffff; border-color: #ff123a; border-width: 8px;"),
+    notification.className="notice notice-error is-dismissible";
+    var mainContentHolder=document.getElementById("main_content");
+    mainContentHolder.setAttribute("style", "padding: 0;"),
+    hostingerLogo[0].remove();
+    var h1Tag=notification.getElementsByTagName("H1")[0];
+    h1Tag.className="000-h1",
+    h1Tag.innerHTML="Black Friday Sale",
+    h1Tag.setAttribute("style", 'color: white; margin-top: 48px; font-family: "Roboto", sans-serif; font-size: 48px; font-weight: 600;');
+    var h2Tag=document.createElement("H2");
+    h2Tag.innerHTML="Get 90% Off!",
+    h2Tag.setAttribute("style", 'color: white; margin: 45px 0; font-family: "Roboto", sans-serif; font-size: 80px; font-weight: 600;'),
+    h1Tag.parentNode.insertBefore(h2Tag, h1Tag.nextSibling);
+    var paragraph=notification.getElementsByTagName("p")[0];
+    paragraph.innerHTML="Don’t miss the opportunity to enjoy up to <strong>4x WordPress Speed, Free SSL and all premium features</strong> available for a fraction of the price!",
+    paragraph.setAttribute("style", 'font-family: "Roboto", sans-serif; font-size: 18px; font-weight: 300;');
+    var list=notification.getElementsByTagName("UL")[0];
+    list.remove();
+    var org_html=mainContent.innerHTML,
+    new_html='<div class="content-wrapper">'+mainContent.innerHTML+'</div><div class="web-hosting-90-off-image-wrapper"><img class="web-hosting-90-off-image" src="https://cdn.000webhost.com/000webhost/promotions/black-friday-2019-wordpress.png"></div>';
+    mainContent.innerHTML=new_html;
+    var saleImage=mainContent.getElementsByClassName("web-hosting-90-off-image")[0]
+}
+
+</script><div style="text-align: right;position: fixed;z-index:9999999;bottom: 0;width: auto;right: 1%;cursor: pointer;line-height: 0;display:block !important;"><a title="Hosted on free web hosting 000webhost.com. Host your own website for FREE." target="_blank" href="https://www.000webhost.com/?utm_source=000webhostapp&utm_campaign=000_logo&utm_medium=website&utm_content=footer_img"><img src="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png" alt="www.000webhost.com"></a></div><script>function getCookie(t){for(var e=t+"=",n=decodeURIComponent(document.cookie).split(";"),o=0;o<n.length;o++){for(var i=n[o];" "==i.charAt(0);)i=i.substring(1);if(0==i.indexOf(e))return i.substring(e.length,i.length)}return""}getCookie("hostinger")&&(document.cookie="hostinger=;expires=Thu, 01 Jan 1970 00:00:01 GMT;",location.reload());var wordpressAdminBody=document.getElementsByClassName("wp-admin")[0],notification=document.getElementsByClassName("notice notice-success is-dismissible"),hostingerLogo=document.getElementsByClassName("hlogo"),mainContent=document.getElementsByClassName("notice_content")[0];if(null!=wordpressAdminBody&&notification.length>0&&null!=mainContent){var googleFont=document.createElement("link");googleFontHref=document.createAttribute("href"),googleFontRel=document.createAttribute("rel"),googleFontHref.value="https://fonts.googleapis.com/css?family=Roboto:300,400,600,700",googleFontRel.value="stylesheet",googleFont.setAttributeNode(googleFontHref),googleFont.setAttributeNode(googleFontRel);var css="@media only screen and (max-width: 576px) {#main_content {max-width: 320px !important;} #main_content h1 {font-size: 30px !important;} #main_content h2 {font-size: 40px !important; margin: 20px 0 !important;} #main_content p {font-size: 14px !important;} #main_content .content-wrapper {text-align: center !important;}} @media only screen and (max-width: 781px) {#main_content {margin: auto; justify-content: center; max-width: 445px;}} @media only screen and (max-width: 1325px) {.web-hosting-90-off-image-wrapper {position: absolute; max-width: 95% !important;} .notice_content {justify-content: center;} .web-hosting-90-off-image {opacity: 0.3;}} @media only screen and (min-width: 769px) {.notice_content {justify-content: space-between;} #main_content {margin-left: 5%; max-width: 445px;} .web-hosting-90-off-image-wrapper {position: absolute; display: flex; justify-content: center; width: 100%; }} .web-hosting-90-off-image {max-width: 90%;} .content-wrapper {min-height: 454px; display: flex; flex-direction: column; justify-content: center; z-index: 5} .notice_content {display: flex; align-items: center;} * {-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;} .upgrade_button_red_sale{box-shadow: 0 2px 4px 0 rgba(255, 69, 70, 0.2); max-width: 350px; border: 0; border-radius: 3px; background-color: #ff4546 !important; padding: 15px 55px !important; font-family: 'Roboto', sans-serif; font-size: 16px; font-weight: 600; color: #ffffff;} .upgrade_button_red_sale:hover{color: #ffffff !important; background: #d10303 !important;}",style=document.createElement("style"),sheet=window.document.styleSheets[0];style.styleSheet?style.styleSheet.cssText=css:style.appendChild(document.createTextNode(css)),document.getElementsByTagName("head")[0].appendChild(style),document.getElementsByTagName("head")[0].appendChild(googleFont);var button=document.getElementsByClassName("upgrade_button_red")[0],link=button.parentElement;link.setAttribute("href","https://www.hostinger.com/hosting-starter-offer?utm_source=000webhost&utm_medium=panel&utm_campaign=000-wp"),link.innerHTML='<button class="upgrade_button_red_sale">Go for it</button>',(notification=notification[0]).setAttribute("style","padding-bottom: 0; padding-top: 5px; background-color: #040713; background-size: cover; background-repeat: no-repeat; color: #ffffff; border-left-color: #040713;"),notification.className="notice notice-error is-dismissible";var mainContentHolder=document.getElementById("main_content");mainContentHolder.setAttribute("style","padding: 0;"),hostingerLogo[0].remove();var h1Tag=notification.getElementsByTagName("H1")[0];h1Tag.className="000-h1",h1Tag.innerHTML="Black Friday Prices",h1Tag.setAttribute("style",'color: white; font-family: "Roboto", sans-serif; font-size: 22px; font-weight: 700; text-transform: uppercase;');var h2Tag=document.createElement("H2");h2Tag.innerHTML="Get 90% Off!",h2Tag.setAttribute("style",'color: white; margin: 10px 0 15px 0; font-family: "Roboto", sans-serif; font-size: 60px; font-weight: 700; line-height: 1;'),h1Tag.parentNode.insertBefore(h2Tag,h1Tag.nextSibling);var paragraph=notification.getElementsByTagName("p")[0];paragraph.innerHTML="Get Web Hosting for $0.99/month + SSL Certificate for FREE!",paragraph.setAttribute("style",'font-family: "Roboto", sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 15px;');var list=notification.getElementsByTagName("UL")[0];list.remove();var org_html=mainContent.innerHTML,new_html='<div class="content-wrapper">'+mainContent.innerHTML+'</div><div class="web-hosting-90-off-image-wrapper"><img class="web-hosting-90-off-image" src="https://cdn.000webhost.com/000webhost/promotions/bf-2020-wp-inject-img.png"></div>';mainContent.innerHTML=new_html;var saleImage=mainContent.getElementsByClassName("web-hosting-90-off-image")[0]}</script></body></html>
