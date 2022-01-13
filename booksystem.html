@@ -58,14 +58,14 @@
 <!-- ngIf: !flight -->
 <!-- ngIf: flight -->
      <md-input-container class="md-icon-float md-block md-input-has-placeholder">
-        <label for="input_13">📌備註</label>
-        <input ng-model="user.terminal" type="text" placeholder="備註" class="ng-pristine ng-untouched ng-valid md-input ng-empty" id="input_13" aria-invalid="false">
+        <label for="input_13">🐣購買項目</label>
+        <input ng-model="user.terminal" type="text" placeholder="購買項目" class="ng-pristine ng-untouched ng-valid md-input ng-empty" id="input_13" aria-invalid="false">
         <div class="md-errors-spacer"></div>
     </md-input-container>
 <!-- end ngIf: flight -->
 <div ng-hide="flight" aria-hidden="true" class="ng-hide" style="">
     <md-input-container class="md-block">
-        <label for="input_5">備註</label>
+        <label for="input_5">購買項目</label>
         <div class="md-resize-wrapper">
             <textarea ng-model="user.note" md-maxlength="150" rows="1" md-select-on-focus="" class="ng-pristine ng-untouched ng-valid md-input ng-empty ng-valid-md-maxlength" id="input_5" aria-invalid="false" ng-trim="false" style="height: 0px;"></textarea>
             <div class="md-resize-handle" style="touch-action: pan-x;"></div>
@@ -111,8 +111,7 @@
             if($scope.flight) {
                 
                 text+='%0A📆訂購日期: '+rideDate+'%0A⏰取餐時間: '+rideTime;
-                text+='🐣購買品項:';
-                text+='%0A📌備註: '+terminal;
+                text+='%0A🐣購買項目: '+terminal;
                 text+='%0A➖➖➖➖➖➖➖';
                 
             }
